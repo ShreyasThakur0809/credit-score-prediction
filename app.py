@@ -3,7 +3,7 @@ import numpy as np
 import pickle
 
 # Load your saved model
-with open('model.pkl', 'rb') as model_file:  # Replace 'model.pkl' with your model filename
+with open('credit_score_model.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
 
 # Define your prediction function
@@ -12,10 +12,8 @@ def predict_credit_score(input_data):
     prediction = model.predict(data)
     return prediction
 
-# Set up the Streamlit app layout
 st.title('Credit Score Prediction App')
 
-# User inputs for different spending categories
 luxury_spending = st.number_input('Luxury Spending', min_value=0)
 charity_spending = st.number_input('Charity Spending', min_value=0)
 local_business_spending = st.number_input('Small/Local Business Spending', min_value=0)
@@ -27,7 +25,6 @@ utilities = st.number_input('Utilities Spending', min_value=0)
 entertainment = st.number_input('Entertainment Spending', min_value=0)
 other_services = st.number_input('Other Services Spending', min_value=0)
 
-# Button to trigger prediction
 if st.button('Predict Credit Score'):
     input_data = [
         luxury_spending,
@@ -41,7 +38,5 @@ if st.button('Predict Credit Score'):
         entertainment,
         other_services
     ]
-    
     prediction = predict_credit_score(input_data)
     st.success(f'Predicted Credit Score: {prediction[0]}')
-
